@@ -3,14 +3,14 @@ import argparse
 import os
 import numpy as np
 import sys
-from keras.wrappers.scikit_learn import KerasClassifier
+from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
 from keras.utils import np_utils
 from sklearn.preprocessing import LabelEncoder
 from sklearn.pipeline import Pipeline
-from keras.models import Sequential
-from keras.layers import Dense, Flatten, Dropout
-from keras.layers.convolutional import Conv1D, MaxPooling1D
-from keras.layers.embeddings import Embedding
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Flatten, Dropout
+from tensorflow.keras.layers import Conv1D, MaxPooling1D
+from tensorflow.keras.layers import Embedding
 
 
 def load_training_data(base_dir):
@@ -88,7 +88,10 @@ if __name__ == "__main__":
 
     model.fit(x_train, y_train, batch_size=16, epochs=args.epochs, verbose=2)
     model.evaluate(x_test, y_test, verbose=2)
-    print('------ save model to {}'.format(os.path.join(args.model_dir, 'my_model.h5')))
-    model.save(os.path.join(args.model_dir, 'my_model.h5'))
+    print('------ save model to {}'.format(os.path.join(args.model_dir, 'my_model')))
+    #model.save(os.path.join(args.model_dir, 'my_model.h5'))
+    print('---version-----')
+    print(tf.__version__)
+    model.save(os.path.join(args.model_dir,'headline-classifier/1'), save_format='tf')
     
     
